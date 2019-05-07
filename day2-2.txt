@@ -1,0 +1,197 @@
+    1  clear
+    2  cd /home/ ; git clone https://github.com/lerndevops/docker-lab.git
+    3  cd docker-lab/
+    4  ls -ltrh
+    5  ./installDocker.sh 
+    6  docker -v
+    7  docker images 
+    8  docker ps 
+    9  clear
+   10  ls -ltrh
+   11  cd myapp/
+   12  ls -ltrh
+   13  unzip myapp.war 
+   14  apt install unzip
+   15  unzip myapp.war 
+   16  ls -ltrh
+   17  more index.html 
+   18  clear
+   19  docker images 
+   20  cd ..
+   21  cd dockerfiles/
+   22  ls -ltrh
+   23  docker build -t mytomcat -f Dockerfile_tomcat1 .
+   24  ls -ltrh
+   25  more Dockerfile_tomcat1
+   26  more Dockerfile_tomcat3
+   27  docker build -t myapp -f Dockerfile_tomcat3 .
+   28  docker images 
+   29  docker run -d -P myapp
+   30  docker ps 
+   31  clear
+   32  cd 
+   33  docker images 
+   34  cd /var/lib/docker/image/
+   35  ls -ltrh
+   36  cd overlay2/
+   37  ll
+   38  cd imagedb/
+   39  ls -ltrh
+   40  cd ..
+   41  cd .
+   42  cd 
+   43  clear
+   44  docker images 
+   45  cd /home/
+   46  ll
+   47  docker save 3c8dfbe1228b -o mytomcat.tgz 
+   48  ls -ltrh
+   49  scp mytomcat.tgz devops@13.233.20.246:/tmp
+   50  history 
+   51  clear
+   52  docker run -d -p 5000:5000 --restart always --name registry registry:2
+   53  docker ps 
+   54  docker rm -f 5544fa68f3e5
+   55  docker ps 
+   56  docker images 
+   57  docker tag myapp localhost:5000/myapp:v1
+   58  docker images 
+   59  docker push localhost:5000/myapp:v1
+   60  docker images 
+   61  docker rmi 9fc92d803786
+   62  docker rmi -f 9fc92d803786
+   63  docker images 
+   64  docker pull localhost:5000/myapp:v1
+   65  docker images 
+   66  docker ps 
+   67  docker exec -it dcbbaeb1ff2b /bin/bash
+   68  docker exec -it dcbbaeb1ff2b /bin/sh
+   69  docker images 
+   70  docker search localhost:5000/myapp
+   71  docker search tomcat
+   72  clear
+   73  docker images 
+   74  docker ps 
+   75  docker rm -f dcbbaeb1ff2b
+   76  docker run -d -P mytomcat
+   77  docker ps 
+   78  docker run -d -P mytomcat
+   79  clear
+   80  df -h
+   81  clear
+   82  docker ps -s 
+   83  docker ps 
+   84  docker pull nginx 
+   85  clear
+   86  docker images 
+   87  docker run -d -P -v /home/docker-lab/:/var/www/html/ nginx 
+   88  docker ps 
+   89  cd docker-lab/
+   90  ls -ltrh
+   91  docker exec -it 2baa7731b4d6 /bin/bash
+   92  docker run -d -P -v /home/docker-lab/:/usr/share/nginx/html/ nginx 
+   93  docker ps 
+   94  ls -ltrh
+   95  vi index.html 
+   96  dokcer images 
+   97  docker images 
+   98  docker ps 
+   99  ./removeCont.sh 
+  100  docker run -it mytomcat /bin/bash
+  101  mkdir /tmp/tomcatlogs
+  102  docker run -d -P -v /tmp/tomcatlogs/:/usr/local/tomcat/logs/ mytomcat
+  103  docker ps 
+  104  cd /tmp/tomcatlogs/
+  105  ls -ltrh
+  106  docker ps 
+  107  docker rm -f 86377746e30a
+  108  docker ps 
+  109  ls -ltrh
+  110  history 
+  111  clear
+  112  docker volume create tomcatlogs
+  113  docker run -d -P -v tomcatlogs:/usr/local/tomcat/logs/ mytomcat
+  114  ls -ltrh
+  115  date
+  116  cd /var/lib/docker/volumes/
+  117  ls -ltrh
+  118  cd tomcatlogs/
+  119  ls -ltrh
+  120  cd _data/
+  121  ls -ltrh
+  122  cd 
+  123  clear
+  124  sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+  125  docker-compose -v
+  126  cd /home/docker-lab/
+  127  ll
+  128  cd docker-compose/
+  129  ls -ltrh
+  130  vi compose.yml
+  131  vi docker-compose1.yml
+  132  vi compose.yml
+  133  vi docker-compose1.yml
+  134  docker-compose -f docker-compose1.yml up -d 
+  135  docker ps 
+  136  more docker-compose1.yml
+  137  docker-compose -f docker-compose1.yml up -d --scale 
+  138  docker-compose -f docker-compose1.yml up -d --scale webserver=5
+  139  docker ps 
+  140  docker-compose -f docker-compose1.yml up -d --scale webserver=5
+  141  docker-compose -f docker-compose1.yml up -d --scale webserver=2
+  142  docker ps 
+  143  docker-compose -f docker-compose1.yml up -d --scale webserver=6
+  144  docker ps 
+  145  docker-compose -f docker-compose1.yml up -d --scale webserver=3
+  146  ls -ltrh
+  147  vi docker-compose2.yml
+  148  docker-compose -f docker-compose2.yml up -d --scale webserver=2 --scale appserver=4
+  149  docker ps 
+  150  ls -ltrh
+  151  docker -v 
+  152  docker ps 
+  153  clear
+  154  cd
+  155  docker network ls
+  156  docker swarm init 
+  157  clear
+  158  docker network ls
+  159  docker ps 
+  160  cd /home/docker-lab/
+  161  ./removeCont.sh 
+  162  docker ps 
+  163  docker run -d -P ngixn 
+  164  docker run -d -P nginx
+  165  dokcer ps 
+  166  docker ps 
+  167  docker inspect ffa862869181
+  168  docker run --net host -d -P nginx
+  169  docker ps 
+  170  docker inspect 3fda58c4018d
+  171  hostname -i
+  172  docker exec 3fda58c4018d hostname -i
+  173  ifconfig 
+  174  ./removeCont.sh 
+  175  docker network ls
+  176  docker network create -d bridge mybnet
+  177  docker network ls
+  178  docker run -itd alpine
+  179  docker ps 
+  180  docker inspect b3eb8b9264cb
+  181  dockder run -itd --name c2 --net mybnet alpine 
+  182  docker run -itd --name c2 --net mybnet alpine 
+  183  docker run -itd --name c3 --net mybnet alpine 
+  184  docker ps 
+  185  docker inspect 0fd162ff5f2d
+  186  docker ps 
+  187  docker exec 0fd162ff5f2d ping c2
+  188  docker exec 0fd162ff5f2d ping condescending_brattain
+  189  docker exec 
+  190  docker exec 53a98ad9b623 ping c3
+  191  docker exec 53a98ad9b623 ping condescending_brattain
+  192  docker ps 
+  193  docker exec b3eb8b9264cb ping c2
+  194  docker exec b3eb8b9264cb ping c3
+  195  hisotry 
+  196  history 
+  197  history > day2-2.txt
