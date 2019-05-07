@@ -5,5 +5,7 @@ RUN mkdir /opt/tomcat
 COPY tomcat.tar.gz /tmp 
 RUN cd /tmp && tar xvfz tomcat.tar.gz
 RUN cp -Rv /tmp/apache-tomcat-8.5.37/* /opt/tomcat/
+COPY myapp.war /opt/tomcat/webapps/
+RUN rm /tmp/tomcat.tar.gz
 EXPOSE 8080
 CMD /opt/tomcat/bin/catalina.sh run

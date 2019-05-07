@@ -1,0 +1,4 @@
+FROM mytomcat
+COPY myapp.war /usr/local/tomcat/webapp/
+EXPOSE 8080
+CMD /usr/local/tomcat/bin/catalina.sh run
