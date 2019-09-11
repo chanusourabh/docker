@@ -1,31 +1,31 @@
 #!/bin/bash
 
 ## Remove any pre installed docker packages : 
-sudo apt-get remove -y docker docker-engine docker.io docker-ce
+
+sudo apt-get remove docker docker-engine docker.io containerd docker-ce docker-ce-cli runc
 cd /var/lib
 rm -r docker
 rm `which docker-compose`
 rm `which docker-machine`
+
 ## Install using the repository:
 
 sudo apt-get update
-sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
-## Add Dockers official GPG key
+sudo apt-get install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common
+
+## Add Dockers official GPG key & stable repo
+
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 
 ## Install Docker latest
+
 sudo apt-get update ; clear
-
-echo "starting the installation of docker-ce ...."
-echo "Available Version for Install"
-echo " "
-apt-cache madison docker-ce | awk '{print $3}'
-echo " "
-read -p 'Enter Required Version: ' version
-
-sudo apt-get install -y docker-ce=$version
+sudo apt-get install -y docker-ce docker-ce-cli containerd.io
 sudo service docker start
+
+## curl -fsSL https://get.docker.com -o get-docker.sh
+## sudo sh get-docker.sh
 
 echo "starting the installation of docker-compose ...."
 echo " "
